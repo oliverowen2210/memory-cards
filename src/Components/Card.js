@@ -1,12 +1,11 @@
 export default function Card(props) {
   return (
     <div
-      className="card"
       onClick={() => {
         props.clickFunc(props.obj);
       }}
-    >
-      {props.obj.background}
-    </div>
+      className="card"
+      style={{ backgroundImage: `url(${props.obj.bg})` }}
+    ></div>
   );
 }

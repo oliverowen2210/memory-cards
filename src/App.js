@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Card from "./Components/Card";
 import uniqid from "uniqid";
+import Shapes from "./Shapes";
 
 function App() {
   let [score, setScore] = useState(0);
@@ -8,14 +9,13 @@ function App() {
   let [cards, setCards] = useState([]);
   let [clickedCards, setClickedCards] = useState([]);
 
-  let getCard = function (id, background) {
-    return { id, background };
-  };
-
   let populateCards = function () {
     let newCards = [];
+    let clonedShapes = [...Shapes];
     for (let i = 1; i < 13; i++) {
-      newCards.push(getCard(i, i));
+      let shapeIndex = Math.floor(Math.random() * clonedShapes.length);
+      newCards.push({ id: i, bg: clonedShapes[shapeIndex] });
+      clonedShapes.splice(shapeIndex, 1);
     }
     setCards(newCards);
   };
@@ -35,8 +35,8 @@ function App() {
   };
 
   let increaseScore = () => {
+    setScore(score + 1);
     if (score + 1 > bestScore) {
-      setScore(score + 1);
       setBestScore(score + 1);
     }
   };
